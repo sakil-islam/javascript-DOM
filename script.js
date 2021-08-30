@@ -37,8 +37,47 @@
 //   element.style.color = "red";
 // }
 
-let lastNthItem = document
-  .querySelector("#items")
-  .querySelector(".item:nth-child(2)");
+// let lastNthItem = document
+//   .querySelector("#items")
+//   .querySelector(".item:nth-child(2)");
 
-lastNthItem.style.color = "red";
+// lastNthItem.style.color = "red";
+
+//parent child
+
+// const grandparent = document.querySelector(".todo-list");
+// const parent = grandparent.children;
+// const children = parent[1].children;
+// const children = grandparent.querySelectorAll(".item");
+
+// console.log(children);
+
+//Reverse
+
+// const children = document.querySelector(".item");
+// const grandparent = children.closest(".todo-list");
+// console.log(grandparent);
+
+//children Two
+// const children = document.querySelector(".item").nextElementSibling;
+// const childrenone = children.previousElementSibling;
+// childrenone.style.color = "red";
+
+//creating an element
+const divElement = document.createElement("div");
+
+divElement.className = "new-class";
+divElement.setAttribute("id", "new-class");
+divElement.setAttribute("title", "new-div");
+
+const container = document.querySelector(".todo-list");
+// const h2Element = container.querySelector("h2");
+// container.insertBefore(divElement, h2Element);
+
+//last child add korar jonno
+// container.appendChild(divElement);       //test deya jay na & return kore
+// container.append(divElement);         //kisu return kore na undefine return kore
+
+const container = document.querySelector(".todo-list");
+// container.appendChild(divElement, document.createElement("p"), "hello world"); // only first ta return kore
+container.append(divElement, document.createElement("p"), "hello world"); //sop kisui return kore
