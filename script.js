@@ -64,13 +64,13 @@
 // childrenone.style.color = "red";
 
 //creating an element
-const divElement = document.createElement("div");
+// const divElement = document.createElement("div");
 
-divElement.className = "new-class";
-divElement.setAttribute("id", "new-class");
-divElement.setAttribute("title", "new-div");
+// divElement.className = "new-class";
+// divElement.setAttribute("id", "new-class");
+// divElement.setAttribute("title", "new-div");
 
-const container = document.querySelector(".todo-list");
+// const container = document.querySelector(".todo-list");
 // const h2Element = container.querySelector("h2");
 // container.insertBefore(divElement, h2Element);
 
@@ -78,6 +78,20 @@ const container = document.querySelector(".todo-list");
 // container.appendChild(divElement);       //test deya jay na & return kore
 // container.append(divElement);         //kisu return kore na undefine return kore
 
-const container = document.querySelector(".todo-list");
+// const container = document.querySelector(".todo-list");
 // container.appendChild(divElement, document.createElement("p"), "hello world"); // only first ta return kore
-container.append(divElement, document.createElement("p"), "hello world"); //sop kisui return kore
+// container.append(divElement, document.createElement("p"), "hello world"); //sop kisui return kore
+
+//Event Listening
+
+// const headerElementtodo = document.querySelector("#header");
+// headerElementtodo.addEventListener("mousedown", (event) => {
+//   console.log(event);
+// });
+
+const formElement = document.querySelector(".form");
+const inputElement = document.querySelector('input[type="text"]');
+
+inputElement.addEventListener("keydown", (event) => {
+  console.log(event.target.value);
+});
