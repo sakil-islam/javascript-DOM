@@ -1,97 +1,71 @@
-// console.log(typeof document);
-// console.log(document.all);
+/*
+Title:To Do Application with vanilla js DOM
+Description:This is file has all the js function nescessary to control the to do application
+Author: Md Sakil Islam
+Date:02/09/2021
+*/
 
-// for (let element of document.all) {
-//   console.log(element);
-// }
-// document.title = "Hi Sakil";
-// console.log(document.all[7]);
-// console.log(document.getElementById("new-task"));
+//Select element & assign them to variable
+let newTask = document.querySelector("#new-task");
+let form = document.querySelector("form");
+let todoUl = document.querySelector("#items");
+let compleeteUl = document.querySelector(".complete-list ul");
 
-// let hearderelement = document.getElementById("header");
-// hearderelement.textContent = "to-do App";
-// hearderelement.style.fontSize = "50px";
+//function
+let createTask = function (task) {
+  let listItem = document.createElement("li");
+  let checkBox = document.createElement("input");
+  let label = document.createElement("label");
 
-// console.dir(document);
+  label.innerText = task;
+  checkBox.type = "checkbox";
 
-//Get Element By ID/ClassName
+  listItem.appendChild(checkBox);
+  listItem.appendChild(label);
 
-// let itemUl = document.getElementById("items");
-// let items = itemUl.getElementsByClassName("item");
-// for (let i = 0; i < items.length; i++) {
-//   items[i].style.color = "red";
-// }
+  return listItem;
+};
 
-//query selector
-// let newTask = document.querySelector("#new-task");
-// console.log(newTask);
+let addTask = function (event) {
+  event.preventDefault();
+  let listItem = createTask(newTask.value);
+  todoUl.appendChild(listItem);
+  newTask.value = "";
+  //bind the new list item to the incomplete list
+  bindInCompleteItems(listItem, completeTask);
+};
 
-// let lastItem = document.querySelector(".item:first-child");
+let completeTask = function () {
+  let listItem = this.parentNode;
+  let deletebtn = document.createElement("button");
+  deletebtn.innerText = "Delete";
+  deletebtn.className = "delete";
+  listItem.appendChild(deletebtn);
+  let checkBox = listItem.querySelector('input[type="checkbox"]');
+  checkBox.remove();
+  compleeteUl.appendChild(listItem);
+  bindCompleteItems(listItem, deleteTask);
+};
+let deleteTask = function () {
+  let listItem = this.parentNode;
+  let ul = listItem.parentNode;
+  ul.removeChild(listItem);
+};
 
-// lastItem.style.color = "red";
+let bindInCompleteItems = function (taskItem, checkboxclick) {
+  let checkBox = taskItem.querySelector('input[type="checkbox"]');
+  checkBox.onchange = checkboxclick;
+};
 
-// let lastItems = document.querySelectorAll(".item:last-child");
-// console.log(lastItems);
+let bindCompleteItems = function (taskItem, deletebuttonclick) {
+  let deleteButton = taskItem.querySelector(".delete");
+  deleteButton.onclick = deletebuttonclick;
+};
 
-// for (let element of lastItems) {
-//   element.style.color = "red";
-// }
-
-// let lastNthItem = document
-//   .querySelector("#items")
-//   .querySelector(".item:nth-child(2)");
-
-// lastNthItem.style.color = "red";
-
-//parent child
-
-// const grandparent = document.querySelector(".todo-list");
-// const parent = grandparent.children;
-// const children = parent[1].children;
-// const children = grandparent.querySelectorAll(".item");
-
-// console.log(children);
-
-//Reverse
-
-// const children = document.querySelector(".item");
-// const grandparent = children.closest(".todo-list");
-// console.log(grandparent);
-
-//children Two
-// const children = document.querySelector(".item").nextElementSibling;
-// const childrenone = children.previousElementSibling;
-// childrenone.style.color = "red";
-
-//creating an element
-// const divElement = document.createElement("div");
-
-// divElement.className = "new-class";
-// divElement.setAttribute("id", "new-class");
-// divElement.setAttribute("title", "new-div");
-
-// const container = document.querySelector(".todo-list");
-// const h2Element = container.querySelector("h2");
-// container.insertBefore(divElement, h2Element);
-
-//last child add korar jonno
-// container.appendChild(divElement);       //test deya jay na & return kore
-// container.append(divElement);         //kisu return kore na undefine return kore
-
-// const container = document.querySelector(".todo-list");
-// container.appendChild(divElement, document.createElement("p"), "hello world"); // only first ta return kore
-// container.append(divElement, document.createElement("p"), "hello world"); //sop kisui return kore
-
-//Event Listening
-
-// const headerElementtodo = document.querySelector("#header");
-// headerElementtodo.addEventListener("mousedown", (event) => {
-//   console.log(event);
-// });
-
-const formElement = document.querySelector(".form");
-const inputElement = document.querySelector('input[type="text"]');
-
-inputElement.addEventListener("keydown", (event) => {
-  console.log(event.target.value);
-});
+for (let i = 0; i < todoUl.children.length; i++) {
+  bindInCompleteItems(todoUl.children[i], completeTask);
+}
+for (let i = 0; i < compleeteUl.children.length; i++) {
+  bindCompleteItems(compleeteUl.children[i], deleteTask);
+}
+form.addEventListener("submit", addTask);
